@@ -1,65 +1,46 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Login and Register</title>
+    <title>Books!</title>
 </head>
 <body>
-  <h2>Register</h2>
-
-  {% with messages = get_flashed_messages()[0] %}
-    {%if messages %}
-      {% for message in messages%}
-        {{ message }}
-      {%endfor%}
-    {%endif%}
-  {%endwith%}
-
-  <form action='register' method='post'>
-      <label>First Name</label>
-      <input type='text' name='first_name'>
-      <label>Last Name</label>
-      <input type='text' name='last_name'>
-      <label>Email</label>
-      <input type='email' name='email'>
-      <label>Password</label>
-      <input type='password' name='password'>
-      <label>Confirm Password</label>
-      <input type='password' name='password_confirmation'>
-      <input type='submit' value='Register'
+  <h2>Add a book</h2>
+  <form action='add' method='post'>
+      <label>Title</label>
+      <input type='text' name='title'>
+      <label>Author</label>
+      <input type='text' name='author'>
+      <input type='submit' value='Submit'>
   </form>
 
+  <h2>All Books</h2>
 
-    <h1>Enter a Valid Email!</h1>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        {% for message in messages %}
-          <p>{{message}}</p>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Date Added</th>
+      <th>Action</th>
+    </tr>
+    {%for book in books%}
+    <tr>
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.date_added}}</td>
+      <td>
+        <a href='delete/{{book.id}}'>delete</a>
+        <a href='show/{{book.id}}'>update</a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
 
-    <form action="create" method="post">
-        <label>Email Address: </label>
-        <input type="text" name="email" />
-        <p></p>
-
-        <input type="submit" value="Submit" />
-    </form>
 
 
-    <h1>Valid emails so far</h1>
-    <table>
-      <tr>
-        <th>Email</th>
-        <th>Date</th>
 
-      </tr>
-      {%for email in emails%}
-      <tr>
-        <td>{{email.email}}</td>
-        <td>{{email.date}}</td>
-      </tr>
-      {%endfor%}
-    </table>
+
+
+
 
 </body>
 </html>
